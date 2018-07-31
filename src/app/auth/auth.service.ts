@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
+import { map } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
 
@@ -40,6 +41,17 @@ export class AuthService {
   logout() {
     this.router.navigate(['/login']);
     this.afAuth.auth.signOut();
+  }
+
+  isAuth() {
+    return this.afAuth.authState.pipe( // authSate devuelve un booleano
+      map( fbUser => {
+        if (fbUser == null) {
+          this.router.navigate(['/login']);
+        }
+        return fbUser != null;
+      }) // Pipe hace retornar un booleano
+    );
   }
 
 }
