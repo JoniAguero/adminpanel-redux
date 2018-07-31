@@ -5,7 +5,7 @@ import * as firebase from 'firebase';
 import { map } from 'rxjs/operators';
 
 import Swal from 'sweetalert2';
-import { AngularFirestore } from '../../../node_modules/angularfire2/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { User } from '../models/User.model';
 
 @Injectable({
@@ -31,6 +31,8 @@ export class AuthService {
         email: resp.user.email,
         uid: resp.user.uid
       };
+
+      console.log(user);
 
       this.afDB.doc(`${ user.uid }/usuario`)
           .set(user)
