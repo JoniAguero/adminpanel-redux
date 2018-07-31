@@ -8,7 +8,7 @@ const initialState: State = {
     isLoading: false
 };
 
-export function todoReducer(state = initialState, action: UI.actions): State {
+export function UIReducer(state = initialState, action: UI.actions): State {
     switch (action.type) {
 
         case UI.LOADING:
