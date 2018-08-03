@@ -3,7 +3,7 @@ import { AuthService } from '../auth.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../ngrx/app.reducer';
 import { Subscription } from 'rxjs';
-import { LOADING, LoadingUIAction } from '../../ngrx/UI/ui.actions';
+import { LoadingUIAction } from '../../ngrx/UI/ui.actions';
 
 @Component({
   selector: 'app-register',
