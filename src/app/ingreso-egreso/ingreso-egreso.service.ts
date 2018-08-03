@@ -6,11 +6,15 @@ import { Store } from '../../../node_modules/@ngrx/store';
 import { AppState } from '../ngrx/app.reducer';
 import { filter, map } from 'rxjs/operators';
 import { SetIngresoEgresoAction } from '../ngrx/Ingreso-Egreso/ingreso-egreso.actions';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IngresoEgresoService {
+
+  ingresoEgresoListenerSubscription: Subscription = new Subscription();
+  ingresoEgresoItemsSubscription: Subscription = new Subscription();
 
   itemsIngresoEgreso: IngresoEgreso [];
 
@@ -28,14 +32,14 @@ export class IngresoEgresoService {
 
   IngresoEgresoListener() {
 
-    this.store.select('user')
+    this.ingresoEgresoListenerSubscription = this.store.select('user')
               .pipe ( filter( user => user.user != null ) )
               .subscribe(user => this.getItemsIngresoEgreso(user.user.uid));
 
   }
 
   getItemsIngresoEgreso(uid: string) {
-    this.afDB.collection(`${uid}/ingresos-egresos/items`)
+    this.ingresoEgresoItemsSubscription = this.afDB.collection(`${uid}/ingresos-egresos/items`)
               .snapshotChanges()
               .pipe(map( items => {
                 return items.map( doc => { return {
@@ -48,6 +52,11 @@ export class IngresoEgresoService {
                this.itemsIngresoEgreso = items;
                this.store.dispatch(new SetIngresoEgresoAction(this.itemsIngresoEgreso));
              });
+  }
+
+  unsubscribeSubscriptios() {
+    this.ingresoEgresoItemsSubscription.unsubscribe();
+    this.ingresoEgresoListenerSubscription.unsubscribe();
   }
 
 }

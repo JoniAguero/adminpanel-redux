@@ -14,11 +14,11 @@ export function UserReducer(state = initialState, action: IE.actions): State {
 
         case IE.SET_INGRESO_EGRESO:
             return {
-                ie: {
+                ie: [
                     ...action.ingresoEgreso.map( item => {
                         return {...item};
                     })
-                }
+                ]
             };
         case IE.UNSET_INGRESO_EGRESO:
             return {

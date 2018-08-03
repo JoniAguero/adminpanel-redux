@@ -37,7 +37,7 @@ export class IngresoEgresoComponent implements OnInit {
 
   create() {
     this.store.dispatch( new LoadingUIAction() );
-    this._ingresoEgresoService.createIngresoEgreso({...this.formIE.value, tipo: this.tipo})
+    this._ingresoEgresoService.createIngresoEgreso({...this.formIE.value, tipo: this.tipo, date: new Date().getTime()})
           .then( res => {
             this.store.dispatch(new NotLoadingUIAction());
             Swal('Creado', '', 'success');

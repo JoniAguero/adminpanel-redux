@@ -8,8 +8,7 @@ import { IngresoEgresoService } from '../ingreso-egreso/ingreso-egreso.service';
 })
 export class DashboardService {
 
-    constructor(private afDB: AngularFirestore,
-                private _ingresoEgresoService: IngresoEgresoService) { }
+    constructor(private _ingresoEgresoService: IngresoEgresoService) { }
 
     obtenerItemsIngresoEgreso() {
         this._ingresoEgresoService.IngresoEgresoListener();
