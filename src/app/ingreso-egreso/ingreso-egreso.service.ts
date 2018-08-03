@@ -5,11 +5,14 @@ import { AuthService } from '../auth/auth.service';
 import { Store } from '../../../node_modules/@ngrx/store';
 import { AppState } from '../ngrx/app.reducer';
 import { filter, map } from 'rxjs/operators';
+import { SetIngresoEgresoAction } from '../ngrx/Ingreso-Egreso/ingreso-egreso.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IngresoEgresoService {
+
+  itemsIngresoEgreso: IngresoEgreso [];
 
   constructor(private _authService: AuthService,
               private afDB: AngularFirestore,
@@ -41,7 +44,10 @@ export class IngresoEgresoService {
                 };
               });
              }))
-             .subscribe( items => console.log(items));
+             .subscribe( (items: any) => {
+               this.itemsIngresoEgreso = items;
+               this.store.dispatch(new SetIngresoEgresoAction(this.itemsIngresoEgreso));
+             });
   }
 
 }
