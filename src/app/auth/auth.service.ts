@@ -19,6 +19,7 @@ import { Subscription } from 'rxjs';
 export class AuthService {
 
   userSubscription: Subscription = new Subscription();
+  private usuario: User;
 
   constructor( private afAuth: AngularFireAuth,
                private router: Router,
@@ -33,8 +34,10 @@ export class AuthService {
                   .subscribe( (user: any) => {
                     const userSave = new User(user);
                     this.store.dispatch(new SetUserAction(userSave));
+                    this.usuario = userSave;
                   });
       } else {
+        this.usuario = null;
         this.userSubscription.unsubscribe();
       }
 
@@ -91,6 +94,10 @@ export class AuthService {
         return fbUser != null;
       }) // Pipe hace retornar un booleano
     );
+  }
+
+  getUserLogin() {
+    return {...this.usuario};
   }
 
 }

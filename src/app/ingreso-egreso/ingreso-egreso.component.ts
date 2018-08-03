@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '../../../node_modules/@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { IngresoEgresoService } from './ingreso-egreso.service';
 
 @Component({
   selector: 'app-ingreso-egreso',
@@ -9,17 +10,24 @@ import { FormGroup, Validators, FormControl } from '../../../node_modules/@angul
 export class IngresoEgresoComponent implements OnInit {
 
   formIE: FormGroup ;
-  tipo: 'ingreso';
+  tipo = 'ingreso';
 
-  constructor() { }
+  constructor(private _ingresoEgresoService: IngresoEgresoService) { }
 
   ngOnInit() {
 
     this.formIE = new FormGroup({
-      'description': new FormControl('', Validators.required),
-      'monto': new FormControl(0, Validators.min(0))
+      'descripcion': new FormControl('', Validators.required),
+      'monto': new FormControl(0, Validators.min(1))
     });
 
+  }
+
+  create() {
+
+    this._ingresoEgresoService.createIngresoEgreso({...this.formIE.value, tipo: this.tipo})
+          .then( res => console.log(res))
+          .catch(err => console.log(err));
   }
 
 }
