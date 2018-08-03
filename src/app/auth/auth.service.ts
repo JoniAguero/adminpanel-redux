@@ -7,6 +7,9 @@ import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { User } from '../models/User.model';
+import { Store } from '@ngrx/store';
+import { AppState } from '../ngrx/app.reducer';
+import { LoadingUIAction, NotLoadingUIAction } from '../ngrx/UI/ui.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +18,8 @@ export class AuthService {
 
   constructor( private afAuth: AngularFireAuth,
                private router: Router,
-               private afDB: AngularFirestore ) { }
+               private afDB: AngularFirestore,
+               private store: Store<AppState> ) { }
 
   isAuthenticated() {
     this.afAuth.authState.subscribe((fbUser: firebase.User) => {
@@ -24,6 +28,9 @@ export class AuthService {
 
   }
   createUser(email: string, password: string, nombre: string) {
+
+    this.store.dispatch( new LoadingUIAction() );
+
     this.afAuth.auth.createUserWithEmailAndPassword(email, password).then( resp => {
 
       const user: User = {
@@ -38,10 +45,11 @@ export class AuthService {
           .set(user)
           .then( () => {
             this.router.navigate(['/']);
+            this.store.dispatch(new NotLoadingUIAction());
           });
 
     }).catch( err => {
-      console.error( err );
+      this.store.dispatch(new NotLoadingUIAction());
       Swal('Error', err.message, 'error');
     });
   }
@@ -49,8 +57,8 @@ export class AuthService {
   login(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password).then(resp => {
       this.router.navigate(['/']);
+      this.store.dispatch(new NotLoadingUIAction());
     }).catch(err => {
-      console.error(err);
       Swal('Error', err.message, 'error');
     });
   }
