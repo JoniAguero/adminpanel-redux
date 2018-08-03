@@ -13,7 +13,7 @@ import { LOADING, LoadingUIAction } from '../../ngrx/UI/ui.actions';
 export class RegisterComponent implements OnInit, OnDestroy {
 
   loading: boolean;
-  suscription: Subscription;
+  suscription: Subscription = new Subscription();
 
   constructor(private _authService: AuthService,
               private store: Store<AppState>) { }
