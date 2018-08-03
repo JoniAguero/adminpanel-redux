@@ -10,11 +10,15 @@ import { User } from '../models/User.model';
 import { Store } from '@ngrx/store';
 import { AppState } from '../ngrx/app.reducer';
 import { LoadingUIAction, NotLoadingUIAction } from '../ngrx/UI/ui.actions';
+import { SetUserAction } from '../ngrx/User/user.actions';
+import { Subscription } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+
+  userSubscription: Subscription = new Subscription();
 
   constructor( private afAuth: AngularFireAuth,
                private router: Router,
@@ -23,7 +27,17 @@ export class AuthService {
 
   isAuthenticated() {
     this.afAuth.authState.subscribe((fbUser: firebase.User) => {
-      console.log(fbUser);
+
+      if (fbUser) {
+        this.userSubscription = this.afDB.doc(`${fbUser.uid}/usuario`).valueChanges()
+                  .subscribe( (user: any) => {
+                    const userSave = new User(user);
+                    this.store.dispatch(new SetUserAction(userSave));
+                  });
+      } else {
+        this.userSubscription.unsubscribe();
+      }
+
     });
 
   }
