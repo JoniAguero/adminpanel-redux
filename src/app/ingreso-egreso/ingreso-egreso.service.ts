@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../ngrx/app.reducer';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { IngresoEgreso } from '../models/IngresoEgreso.model';
 import { AuthService } from '../auth/auth.service';
-import { LoadingUIAction } from '../ngrx/UI/ui.actions';
+import { Store } from '../../../node_modules/@ngrx/store';
+import { AppState } from '../ngrx/app.reducer';
+import { filter } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,8 @@ import { LoadingUIAction } from '../ngrx/UI/ui.actions';
 export class IngresoEgresoService {
 
   constructor(private _authService: AuthService,
-              private afDB: AngularFirestore) { }
+              private afDB: AngularFirestore,
+              private store: Store<AppState>) { }
 
   createIngresoEgreso(data: IngresoEgreso) {
 
@@ -21,4 +22,20 @@ export class IngresoEgresoService {
               .collection('items')
               .add({...data});
   }
+
+  IngresoEgresoListener() {
+
+    this.store.select('user')
+              .pipe ( filter( user => user.user != null ) )
+              .subscribe(user => this.getItemsIngresoEgreso(user.user.uid));
+
+  }
+
+  getItemsIngresoEgreso(uid: string) {
+    this.afDB.collection(`${uid}/ingresos-egresos/items`)
+             .valueChanges()
+             .subscribe( items => console.log(items)
+              );
+  }
+
 }
