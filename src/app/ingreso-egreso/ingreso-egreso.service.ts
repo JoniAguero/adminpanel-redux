@@ -4,7 +4,7 @@ import { IngresoEgreso } from '../models/IngresoEgreso.model';
 import { AuthService } from '../auth/auth.service';
 import { Store } from '../../../node_modules/@ngrx/store';
 import { AppState } from '../ngrx/app.reducer';
-import { filter } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -33,9 +33,15 @@ export class IngresoEgresoService {
 
   getItemsIngresoEgreso(uid: string) {
     this.afDB.collection(`${uid}/ingresos-egresos/items`)
-             .valueChanges()
-             .subscribe( items => console.log(items)
-              );
+              .snapshotChanges()
+              .pipe(map( items => {
+                return items.map( doc => { return {
+                  uid: doc.payload.doc.id,
+                  ...doc.payload.doc.data()
+                };
+              });
+             }))
+             .subscribe( items => console.log(items));
   }
 
 }
