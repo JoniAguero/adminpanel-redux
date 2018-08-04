@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../ngrx/app.reducer';
+import * as ie from '../../ngrx/Ingreso-Egreso/ingreso-egreso.reduce';
 import { IngresoEgreso } from '../../models/IngresoEgreso.model';
 import { IngresoEgresoService } from '../ingreso-egreso.service';
 
@@ -16,7 +16,7 @@ export class DetalleComponent implements OnInit {
   items: IngresoEgreso[];
 
   constructor(private _ingresoEgresoService: IngresoEgresoService,
-              private store: Store<AppState>) { }
+    private store: Store<ie.AppState>) { }
 
   ngOnInit() {
     this.store.select('ie').subscribe( res => {

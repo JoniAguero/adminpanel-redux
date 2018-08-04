@@ -12,10 +12,18 @@ import { DetalleComponent } from './detalle/detalle.component';
 import { DetallePipe } from './detalle/detalle.pipe';
 import { DashboardRoutingModule } from '../dashboard/dashboard.routing.module';
 
+import { StoreModule } from '@ngrx/store';
+import { IngresoEgresoReducer } from '../ngrx/Ingreso-Egreso/ingreso-egreso.reduce';
+
 
 @NgModule({
   imports: [
-    CommonModule, ReactiveFormsModule, ChartsModule, SharedModule, DashboardRoutingModule
+    CommonModule,
+    ReactiveFormsModule,
+    ChartsModule,
+    SharedModule,
+    DashboardRoutingModule,
+    StoreModule.forFeature('ie', IngresoEgresoReducer)
   ],
   declarations: [
     DashboardComponent,
