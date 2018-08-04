@@ -5,7 +5,7 @@ import { AuthService } from '../../auth/auth.service';
 import { AppState } from '../../ngrx/app.reducer';
 import { NotLoadingUIAction } from '../../ngrx/UI/ui.actions';
 import { filter } from 'rxjs/operators';
-import { Subscription } from 'node_modules/rxjs';
+import { Subscription } from 'rxjs';
 import { IngresoEgresoService } from '../../ingreso-egreso/ingreso-egreso.service';
 
 @Component({

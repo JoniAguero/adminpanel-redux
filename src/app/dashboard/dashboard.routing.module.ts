@@ -3,8 +3,8 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // import { AuthGuardService } from './auth/auth-guard.service';
-import { DashboardComponent } from '../dashboard/dashboard.component';
-import { dashboardRoutes } from '../dashboard/dashboard.routes';
+import { DashboardComponent } from './dashboard.component';
+import { dashboardRoutes } from './dashboard.routes';
 
 
 const routes: Routes = [
@@ -28,4 +28,4 @@ const routes: Routes = [
     ]
 
 })
-export class IngresoEgresoRoutingModule { }
+export class DashboardRoutingModule { }

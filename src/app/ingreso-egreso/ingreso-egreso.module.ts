@@ -10,12 +10,12 @@ import { IngresoEgresoComponent } from './ingreso-egreso.component';
 import { EstadisticaComponent } from './estadistica/estadistica.component';
 import { DetalleComponent } from './detalle/detalle.component';
 import { DetallePipe } from './detalle/detalle.pipe';
-import { IngresoEgresoRoutingModule } from './ingreso-egreso.routing.module';
+import { DashboardRoutingModule } from '../dashboard/dashboard.routing.module';
 
 
 @NgModule({
   imports: [
-    CommonModule, ReactiveFormsModule, ChartsModule, SharedModule, IngresoEgresoRoutingModule
+    CommonModule, ReactiveFormsModule, ChartsModule, SharedModule, DashboardRoutingModule
   ],
   declarations: [
     DashboardComponent,
