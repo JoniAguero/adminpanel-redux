@@ -10,11 +10,11 @@ import { IngresoEgreso } from '../../models/IngresoEgreso.model';
 })
 export class EstadisticaComponent implements OnInit {
 
-  private montoIngreso = 0;
-  private montoEgreso = 0;
+  montoIngreso = 0;
+  montoEgreso = 0;
 
-  private cantIngreso = 0;
-  private cantEgreso = 0;
+  cantIngreso = 0;
+  cantEgreso = 0;
 
   // Graficas
   public doughnutChartLabels: string[];
