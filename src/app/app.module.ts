@@ -17,6 +17,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 // Form
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+// Graficas
+import { ChartsModule } from 'ng2-charts';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
@@ -49,6 +52,7 @@ import { DetallePipe } from './ingreso-egreso/detalle/detalle.pipe';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    ChartsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,

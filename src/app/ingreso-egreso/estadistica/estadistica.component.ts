@@ -16,6 +16,11 @@ export class EstadisticaComponent implements OnInit {
   private cantIngreso = 0;
   private cantEgreso = 0;
 
+  // Graficas
+  public doughnutChartLabels: string[];
+  public doughnutChartData: number[];
+  public doughnutChartType = 'doughnut';
+
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
@@ -33,6 +38,8 @@ export class EstadisticaComponent implements OnInit {
         this.cantEgreso++;
         this.montoEgreso += element.monto;
       }
+      this.doughnutChartLabels = ['Egresos', 'Ingresos'];
+      this.doughnutChartData = [this.montoEgreso, this.montoIngreso];
     });
   }
 
