@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { IngresoEgreso } from '../models/IngresoEgreso.model';
 import { AuthService } from '../auth/auth.service';
-import { Store } from '../../../node_modules/@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from '../ngrx/app.reducer';
 import { filter, map } from 'rxjs/operators';
 import { SetIngresoEgresoAction } from '../ngrx/Ingreso-Egreso/ingreso-egreso.actions';
@@ -57,6 +57,12 @@ export class IngresoEgresoService {
   unsubscribeSubscriptios() {
     this.ingresoEgresoItemsSubscription.unsubscribe();
     this.ingresoEgresoListenerSubscription.unsubscribe();
+  }
+
+  deleteItem(uid: string) {
+    const user = this._authService.getUserLogin();
+    return this.afDB.doc(`${user.uid}/ingresos-egresos/items/${uid}`)
+            .delete();
   }
 
 }

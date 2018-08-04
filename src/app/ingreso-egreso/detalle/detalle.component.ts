@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '../../../../node_modules/@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from '../../ngrx/app.reducer';
 import { IngresoEgreso } from '../../models/IngresoEgreso.model';
 import { IngresoEgresoService } from '../ingreso-egreso.service';
+
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-detalle',
@@ -20,6 +22,14 @@ export class DetalleComponent implements OnInit {
     this.store.select('ie').subscribe( res => {
       this.items = res.ie;
     });
+  }
+
+  deleteItem(uid: string) {
+    this._ingresoEgresoService.deleteItem(uid)
+            .then(res => Swal('Eliminado', `El ítem fue eliminado!`, 'success'))
+            .catch( err => {
+              Swal('Ops', `Error al elminar el item!`, 'error');
+            });
   }
 
 }

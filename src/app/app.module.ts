@@ -28,6 +28,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { AppReducer } from './ngrx/app.reducer';
+import { DetallePipe } from './ingreso-egreso/detalle/detalle.pipe';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AppReducer } from './ngrx/app.reducer';
     DetalleComponent,
     FooterComponent,
     NavbarComponent,
-    SidebarComponent
+    SidebarComponent,
+    DetallePipe
   ],
   imports: [
     BrowserModule,
