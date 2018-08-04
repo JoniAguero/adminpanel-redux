@@ -6,6 +6,7 @@ import { AppState } from '../../ngrx/app.reducer';
 import { NotLoadingUIAction } from '../../ngrx/UI/ui.actions';
 import { filter } from 'rxjs/operators';
 import { Subscription } from 'node_modules/rxjs';
+import { IngresoEgresoService } from '../../ingreso-egreso/ingreso-egreso.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,6 +19,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
 
   constructor(private _authService: AuthService,
+              private _ingresoEgresoService: IngresoEgresoService,
               private store: Store<AppState>) { }
 
   ngOnInit() {
@@ -30,8 +32,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   signOut() {
     this._authService.logout();
-    const action = new NotLoadingUIAction();
-    this.store.dispatch(action);
+    this._ingresoEgresoService.unsubscribeSubscriptios();
   }
 
   ngOnDestroy() {
