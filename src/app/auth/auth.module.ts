@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -13,7 +14,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
         LoginComponent, RegisterComponent
     ],
     imports: [
-        CommonModule, FormsModule, AngularFireAuthModule
+        CommonModule, FormsModule, AngularFireAuthModule, RouterModule
     ],
     providers: []
 })
